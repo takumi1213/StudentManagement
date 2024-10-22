@@ -26,8 +26,6 @@ public class StudentManagementApplication {
 	public void setStudentInfo(String name, String age) {
 		this.name = name;
 		this.age = age;
-//		GitHub practice
-		
 	}
 
 	@PostMapping("/StudentName")
