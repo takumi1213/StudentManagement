@@ -1,7 +1,7 @@
 // 20回　27:30~
 // 右クリック　生成　→ getter と　setter
 
-package raisetech.StudentManagement;
+package raisetech.StudentManagement.data;
 
 import lombok.Getter;
 import lombok.Setter;
