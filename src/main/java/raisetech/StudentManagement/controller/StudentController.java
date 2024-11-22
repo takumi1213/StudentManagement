@@ -25,10 +25,19 @@ public class StudentController {
     return service.searchStudentList();
   }
 
-  //	23 課題
   @GetMapping("/studentCourseList")
   public List<StudentsCourses> getStudentCourseList(){
     return service.searchStudentCourseList();
+  }
+
+  @GetMapping("/studentListOver30")
+  public List<Student> getStudentListOver30(){
+    return service.searchOver30StudentList();
+  }
+
+  @GetMapping("/studentJavaCourseList")
+  public List<StudentsCourses> getJavaCourseList(){
+    return service.searchJavaCourseList();
   }
 
 }
