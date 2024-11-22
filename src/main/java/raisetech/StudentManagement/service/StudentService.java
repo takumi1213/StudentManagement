@@ -38,7 +38,8 @@ public class StudentService {
     List<StudentsCourses> studentsCoursesList = repository.searchStudentsCourses(); // すべてのコースリストを取得
 
     List<StudentsCourses> courseNameList = studentsCoursesList.stream()
-        .filter(studentsCourses -> studentsCourses.getCourseName().equals ("Java")).toList();// 年齢が30歳以上の学生をフィルタリング
+        .filter(studentsCourses -> studentsCourses.getCourseName().equals ("Java")).toList();
+    // Java受講学生をフィルタリング
 
     return courseNameList;
   }
