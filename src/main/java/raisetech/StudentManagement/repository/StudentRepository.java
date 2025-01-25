@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import raisetech.StudentManagement.data.Student;
 import raisetech.StudentManagement.data.StudentsCourses;
 
@@ -19,9 +20,15 @@ public interface StudentRepository {
   @Select("SELECT * FROM students")
   List<Student> search();
 
+  @Select("SELECT * FROM students WHERE id = #{id}")
+  Student searchStudent(String id);
+
 //  23回　課題
   @Select("SELECT * FROM students_courses")
-  List<StudentsCourses> searchStudentsCourses();
+  List<StudentsCourses> searchStudentsCoursesList();
+
+  @Select("SELECT * FROM students_courses WHERE student_id = #{studentId}")
+  List<StudentsCourses> searchStudentsCourses(String studentId);
 
 //  28回　課題
 //  INSERT INTO 最初の値はDBの値。VALUESの値はStudent.javaファイル記載の値
@@ -34,5 +41,17 @@ public interface StudentRepository {
 
   @Insert("INSERT INTO students_courses(student_id, course_name, course_start_at, course_end_at)"
       + "VALUES(#{studentId}, #{courseName}, #{courseStartAt}, #{courseEndAt})")
+  @Options(useGeneratedKeys = true, keyProperty = "id")
   void registerStudentsCourses(StudentsCourses studentsCourses);
+
+//  29回　課題
+  @Update(
+      "UPDATE students SET name = #{name}, kana_name = #{kanaName}, nickname = #{nickname}, "
+          + "email = #{email}, area = #{area}, age = #{age}, sex = #{sex}, remark = #{remark}, "
+          + "is_deleted = #{isDeleted} WHERE id = #{id}")
+  void updateStudent(Student student);
+
+  @Update("UPDATE students_courses SET course_name = #{courseName} WHERE id = #{id}")
+  void updateStudentsCourses(StudentsCourses studentsCourses);
+
 }
