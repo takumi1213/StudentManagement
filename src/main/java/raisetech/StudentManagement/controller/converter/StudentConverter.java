@@ -21,7 +21,7 @@ public class StudentConverter {
           .filter(studentsCourse -> student.getId().equals(studentsCourse.getStudentId()))
           .collect(Collectors.toList());
 
-      studentDetail.setStudentCourses(convertStudentCourses);
+      studentDetail.setStudentsCourses(convertStudentCourses);
       studentDetails.add(studentDetail);
     });
     return studentDetails;
