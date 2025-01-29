@@ -23,32 +23,40 @@ import raisetech.StudentManagement.data.StudentsCourses;
 import raisetech.StudentManagement.domain.StudentDetail;
 import raisetech.StudentManagement.service.StudentService;
 
+//受講生の検索や登録、更新などを行うREST APIとして受け付けるcontrollerです。
+
 @RestController
 public class StudentController {
 
+  // 受講生サービス
   private StudentService service;
-  private StudentConverter converter;
 
+//  コンストラクタ
+//  @param service 受講生サービス
+//  @param converter 受講生コンバータ
   @Autowired
-  public StudentController(StudentService service, StudentConverter converter) {
+  public StudentController(StudentService service) {
     this.service = service;
-    this.converter = converter;
   }
+
+//  受講生検索です。
+//  全件検索を行うので、条件指定は行わないものになります。
+//  @return 受講生一覧（全件数）
 
   @GetMapping("/studentList")
   public List<StudentDetail> getStudentList(){
-    List<Student> students = service.searchStudentList();
-    List<StudentsCourses> studentsCourses = service.searchStudentCourseList();
-    return converter.convertStudentDetails(students, studentsCourses);
+    return service.searchStudentList();
   }
 
-//  講義33
-//  @GetMapping("/student/{id}")
-//  public String getStudent(@PathVariable String id, Model model){
-//    StudentDetail studentDetail = service.searchStudent(id);
-//    model.addAttribute("studentDetail" , studentDetail);
-//    return "updateStudent";
-//  }
+//  受講生検索です。
+//  idに紐付く任意の受講生の情報を取得します。
+//  @param id　受講生ID
+//  @return 受講生情報
+
+  @GetMapping("/student/{id}")
+  public StudentDetail getStudent(@PathVariable String id){
+    return service.searchStudent(id);
+  }
 
   @GetMapping("/studentListOver30")
   public List<Student> getStudentListOver30(){
@@ -60,26 +68,23 @@ public class StudentController {
     return service.searchJavaCourseList();
   }
 
-  @GetMapping("/newStudent")
-  public String newStudent(Model model){
-    StudentDetail studentDetail = new StudentDetail();
-    studentDetail.setStudentsCourses(Arrays.asList(new StudentsCourses()));
-    model.addAttribute("studentDetail" , studentDetail);
-    return "registerStudent";
-  }
+//  34回　画面登録がなくなったので削除
+//  @GetMapping("/newStudent")
+//  public String newStudent(Model model){
+//    StudentDetail studentDetail = new StudentDetail();
+//    studentDetail.setStudentsCourses(Arrays.asList(new StudentsCourses()));
+//    model.addAttribute("studentDetail" , studentDetail);
+//    return "registerStudent";
+//  }
 
   @PostMapping("/registerStudent")
-  public String registerStudent(@ModelAttribute StudentDetail studentDetail, BindingResult result){
-    if (result.hasErrors()){
-      return "registerStudent";
-    }
-//    System.out.println(studentDetail.getStudent().getName() + "さんが新規受講生として登録しました。");
+  public ResponseEntity<StudentDetail> registerStudent(@RequestBody StudentDetail studentDetail){
 
 //    課題28
 //    1新規受講生情報を登録する処理を実装する。
 //    2コース情報も一緒に登録できるように実装する。コースは単体で良い。
-    service.registerStudent(studentDetail);
-    return "redirect:/studentList";
+    StudentDetail responsStudentDeteil = service.registerStudent(studentDetail);
+    return ResponseEntity.ok(responsStudentDeteil);
   }
 
   @PostMapping("/updateStudent")
