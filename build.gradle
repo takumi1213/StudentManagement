@@ -31,6 +31,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:3.3.6'
 //	Validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+//	OpenAI Generator
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+
 //	Apache Commons Lang 便利機能　ユーティリティ　17回30分頃
 	implementation 'org.apache.commons:commons-lang3:3.14.0'
 
