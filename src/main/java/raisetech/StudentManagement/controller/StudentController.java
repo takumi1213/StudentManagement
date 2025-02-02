@@ -37,7 +37,6 @@ public class StudentController {
 
 //  受講生詳細の検索です。全件検索を行うので、条件指定は行わないものになります。
 //  @return 受講生の詳細一覧（全件）
-
   @GetMapping("/studentList")
   public List<StudentDetail> getStudentList(){
     return service.searchStudentList();
@@ -46,7 +45,6 @@ public class StudentController {
 //  受講生詳細の検索です。idに紐付く任意の受講生の情報を取得します。
 //  @param id　受講生ID
 //  @return 受講生情報
-
   @GetMapping("/student/{id}")
   public StudentDetail getStudent(@PathVariable @Size(min = 1, max = 3) String id){
     return service.searchStudent(id);
@@ -62,19 +60,9 @@ public class StudentController {
     return service.searchJavaCourseList();
   }
 
-//  34回　画面登録がなくなったので削除
-//  @GetMapping("/newStudent")
-//  public String newStudent(Model model){
-//    StudentDetail studentDetail = new StudentDetail();
-//    studentDetail.setStudentsCourses(Arrays.asList(new StudentsCourses()));
-//    model.addAttribute("studentDetail" , studentDetail);
-//    return "registerStudent";
-//  }
-
 //  受講生詳細の登録を行います。
 //  @param studentDetail 受講生詳細
 //　@return　実行結果
-
   @PostMapping("/registerStudent")
   public ResponseEntity<StudentDetail> registerStudent(@RequestBody @Valid StudentDetail studentDetail){
 
