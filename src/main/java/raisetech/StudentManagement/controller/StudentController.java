@@ -3,6 +3,7 @@
 package raisetech.StudentManagement.controller;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class StudentController {
 //  @param id　受講生ID
 //  @return 受講生情報
   @GetMapping("/student/{id}")
-  public StudentDetail getStudent(@PathVariable @Size(min = 1, max = 3) String id){
+  public StudentDetail getStudent(@PathVariable @Size(min = 1, max = 3) @Pattern(regexp = "^\\d+$") String id){
     return service.searchStudent(id);
   }
 
