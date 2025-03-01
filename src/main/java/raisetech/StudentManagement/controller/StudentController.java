@@ -2,9 +2,7 @@
 
 package raisetech.StudentManagement.controller;
 
-import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +37,6 @@ public class StudentController {
 
 //  受講生詳細の検索です。全件検索を行うので、条件指定は行わないものになります。
 //  @return 受講生の詳細一覧（全件）
-  @Operation(summary = "一覧検索" ,description = "受講生の一覧を検索します")
   @GetMapping("/studentList")
   public List<StudentDetail> getStudentList(){
     return service.searchStudentList();
@@ -48,9 +45,8 @@ public class StudentController {
 //  受講生詳細の検索です。idに紐付く任意の受講生の情報を取得します。
 //  @param id　受講生ID
 //  @return 受講生情報
-  @Operation(summary = "受講生ID検索" ,description = "受講生を検索します")
   @GetMapping("/student/{id}")
-  public StudentDetail getStudent(@PathVariable @Size(min = 1, max = 3) @Pattern(regexp = "^\\d+$") String id){
+  public StudentDetail getStudent(@PathVariable @Size(min = 1, max = 3) String id){
     return service.searchStudent(id);
   }
 
@@ -67,7 +63,6 @@ public class StudentController {
 //  受講生詳細の登録を行います。
 //  @param studentDetail 受講生詳細
 //　@return　実行結果
-  @Operation(summary = "受講生登録", description = "受講生を登録します")
   @PostMapping("/registerStudent")
   public ResponseEntity<StudentDetail> registerStudent(@RequestBody @Valid StudentDetail studentDetail){
 
@@ -78,11 +73,11 @@ public class StudentController {
     return ResponseEntity.ok(responsStudentDetail);
   }
 
-/**  受講生詳細の更新を行います
-  キャンセルフラグの更新もここで行います（論理削除）
-  @return 実行結果
- */
-  @Operation(summary = "受講生更新処理" ,description = "受講生の詳細を更新します")
+//  受講生詳細の更新を行います
+//  キャンセルフラグの更新もここで行います（論理削除）
+//  @param　studentDetail 受講生詳細
+//  @return 実行結果
+
   @PutMapping("/updateStudent")
   public ResponseEntity<String> updateStudent(@RequestBody StudentDetail studentDetail){
     service.updateStudent(studentDetail);
